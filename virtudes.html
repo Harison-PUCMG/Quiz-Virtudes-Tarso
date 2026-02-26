@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtudes - CMAEE Dr. Tarso de Coimbra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FFF8F0;
+            --card-bg: #FFFFFF;
+            --primary: #FF6B35;
+            --primary-light: #FFF0E8;
+            --success: #2ECC71;
+            --success-light: #E8F8F0;
+            --error: #E74C3C;
+            --error-light: #FDE8E6;
+            --blue: #3498DB;
+            --blue-light: #EBF5FB;
+            --purple: #9B59B6;
+            --purple-light: #F4ECF7;
+            --yellow: #F1C40F;
+            --yellow-light: #FEF9E7;
+            --teal: #1ABC9C;
+            --teal-light: #E8F8F5;
+            --text: #2C3E50;
+            --text-light: #7F8C8D;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+            --radius: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, #FF8F65 100%);
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: headerPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes headerPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .header h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(2rem, 5vw, 3rem);
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .header .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            margin-top: 8px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            font-weight: 600;
+        }
+
+        .header .institution {
+            font-size: 0.85rem;
+            margin-top: 12px;
+            opacity: 0.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-container {
+            background: white;
+            padding: 16px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .progress-bar-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .progress-label {
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: var(--primary);
+            white-space: nowrap;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 14px;
+            background: #F0E6DC;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--yellow));
+            border-radius: 10px;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%;
+        }
+
+        .progress-stars {
+            font-size: 1.3rem;
+            min-width: 70px;
+            text-align: right;
+        }
+
+        /* ===== SCREENS ===== */
+        .screen {
+            display: none;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== WELCOME SCREEN ===== */
+        .welcome-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .welcome-emoji {
+            font-size: 5rem;
+            margin-bottom: 16px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .welcome-card h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .welcome-card p {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .welcome-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 24px 0;
+            flex-wrap: wrap;
+        }
+
+        .welcome-icon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .welcome-icon-item .emoji {
+            font-size: 3rem;
+            background: var(--primary-light);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .welcome-icon-item span {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 36px;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #FF8F65);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #58D68D);
+            color: white;
+        }
+
+        .btn-blue {
+            background: linear-gradient(135deg, var(--blue), #5DADE2);
+            color: white;
+        }
+
+        /* ===== ACTIVITY HEADER ===== */
+        .activity-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .activity-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1rem;
+            padding: 6px 18px;
+            border-radius: 50px;
+            margin-bottom: 10px;
+        }
+
+        .activity-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+            color: var(--text);
+        }
+
+        .activity-instruction {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        /* ===== SCENARIO CARD ===== */
+        .scenario-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .scenario-image {
+            width: 100%;
+            aspect-ratio: 16/10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(4rem, 12vw, 8rem);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scenario-image .scene {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .scenario-question {
+            padding: 20px 24px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-top: 3px solid #f0f0f0;
+        }
+
+        /* ===== OPTIONS GRID ===== */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 3px solid #E8E0D8;
+            border-radius: 16px;
+            padding: 20px 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .option-btn .option-emoji {
+            font-size: 2.8rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .option-btn .option-text {
+            font-weight: 800;
+            font-size: 1.05rem;
+            color: var(--text);
+        }
+
+        .option-btn.correct {
+            border-color: var(--success);
+            background: var(--success-light);
+            animation: correctPulse 0.5s ease;
+        }
+
+        .option-btn.wrong {
+            border-color: var(--error);
+            background: var(--error-light);
+            animation: shake 0.5s ease;
+        }
+
+        .option-btn.disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        /* ===== FEEDBACK ===== */
+        .feedback {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.success {
+            background: var(--success-light);
+            border: 2px solid var(--success);
+        }
+
+        .feedback.error {
+            background: var(--error-light);
+            border: 2px solid var(--error);
+        }
+
+        .feedback .feedback-emoji {
+            font-size: 3rem;
+            margin-bottom: 6px;
+        }
+
+        .feedback .feedback-text {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* ===== MATCHING ACTIVITY ===== */
+        .match-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .match-column {
+            flex: 1;
+            min-width: 260px;
+        }
+
+        .match-column h3 {
+            text-align: center;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.1rem;
+            margin-bottom: 14px;
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        .match-column.situations h3 {
+            background: var(--blue-light);
+            color: var(--blue);
+        }
+
+        .match-column.virtues h3 {
+            background: var(--purple-light);
+            color: var(--purple);
+        }
+
+        .match-item {
+            background: white;
+            border: 3px solid #E8E0D8;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .match-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .match-item.selected {
+            border-color: var(--blue);
+            background: var(--blue-light);
+            box-shadow: 0 0 0 3px rgba(52,152,219,0.2);
+        }
+
+        .match-item.matched {
+            border-color: var(--success);
+            background: var(--success-light);
+            pointer-events: none;
+        }
+
+        .match-item.wrong-match {
+            animation: shake 0.4s ease;
+            border-color: var(--error);
+            background: var(--error-light);
+        }
+
+        .match-item .item-emoji {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .match-item .item-text {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        /* ===== SORT ACTIVITY ===== */
+        .sort-scenario {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .sort-scenario .sort-emoji {
+            font-size: 4rem;
+            margin-bottom: 8px;
+        }
+
+        .sort-scenario .sort-text {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .sort-buckets {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .sort-bucket {
+            border: 3px dashed #D5D8DC;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .sort-bucket:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .sort-bucket .bucket-emoji {
+            font-size: 2.5rem;
+        }
+
+        .sort-bucket .bucket-label {
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .sort-bucket.correct-bucket {
+            border-color: var(--success);
+            background: var(--success-light);
+            border-style: solid;
+        }
+
+        .sort-bucket.wrong-bucket {
+            border-color: var(--error);
+            background: var(--error-light);
+            animation: shake 0.4s ease;
+        }
+
+        .sort-counter {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        /* ===== BUILD ACTIVITY ===== */
+        .build-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .build-card {
+            background: white;
+            border: 3px solid #E8E0D8;
+            border-radius: 16px;
+            padding: 20px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .build-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--teal);
+        }
+
+        .build-card.picked {
+            border-color: var(--success);
+            background: var(--success-light);
+            animation: correctPulse 0.4s ease;
+        }
+
+        .build-card.wrong-pick {
+            border-color: var(--error);
+            background: var(--error-light);
+            animation: shake 0.4s ease;
+        }
+
+        .build-card .build-emoji {
+            font-size: 2.8rem;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .build-card .build-text {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .build-target {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .build-target .target-virtue {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.6rem;
+            color: var(--teal);
+            margin-bottom: 6px;
+        }
+
+        .build-target .target-emoji {
+            font-size: 3.5rem;
+        }
+
+        .build-target .target-instruction {
+            font-weight: 600;
+            color: var(--text-light);
+            margin-top: 6px;
+        }
+
+        .build-collected {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            min-height: 50px;
+        }
+
+        .build-collected .collected-item {
+            font-size: 2rem;
+            background: var(--success-light);
+            border: 2px solid var(--success);
+            border-radius: 12px;
+            padding: 8px 12px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* ===== FINAL SCREEN ===== */
+        .final-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .final-trophy {
+            font-size: 6rem;
+            margin-bottom: 16px;
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+
+        .final-card h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .final-score {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .final-stars {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .virtues-review {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .virtue-badge {
+            background: var(--primary-light);
+            border-radius: 14px;
+            padding: 14px 10px;
+            text-align: center;
+        }
+
+        .virtue-badge .badge-emoji {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .virtue-badge .badge-name {
+            font-weight: 800;
+            font-size: 0.85rem;
+            color: var(--primary);
+        }
+
+        /* ===== NAV BUTTONS ===== */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        /* ===== CONFETTI ===== */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .confetti {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: confettiFall 3s ease-in forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 500px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            .sort-buckets {
+                grid-template-columns: 1fr;
+            }
+            .match-container {
+                flex-direction: column;
+            }
+            .build-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+    <h1>🌟 Virtudes 🌟</h1>
+    <div class="subtitle">O que é certo? O que é bom?</div>
+    <div class="institution">PUC Minas — CMAEE Dr. Tarso de Coimbra</div>
+</div>
+
+<!-- ===== PROGRESS ===== -->
+<div class="progress-container">
+    <div class="progress-bar-wrapper">
+        <span class="progress-label" id="progressLabel">0 / 4</span>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <span class="progress-stars" id="progressStars">⭐ 0</span>
+    </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SCREEN 0: WELCOME -->
+<!-- ================================================================ -->
+<div class="screen active" id="screen-welcome">
+    <div class="welcome-card">
+        <div class="welcome-emoji">👋</div>
+        <h2>Bem-vindo!</h2>
+        <p>Vamos aprender sobre <strong>VIRTUDES</strong>.</p>
+        <p>Virtudes = coisas boas que fazemos. 💪❤️</p>
+
+        <div class="welcome-icons">
+            <div class="welcome-icon-item">
+                <div class="emoji">🤝</div>
+                <span>Ajudar</span>
+            </div>
+            <div class="welcome-icon-item">
+                <div class="emoji">💛</div>
+                <span>Respeitar</span>
+            </div>
+            <div class="welcome-icon-item">
+                <div class="emoji">🎯</div>
+                <span>Ser justo</span>
+            </div>
+            <div class="welcome-icon-item">
+                <div class="emoji">💪</div>
+                <span>Coragem</span>
+            </div>
+        </div>
+
+        <p style="font-size:1rem; color:var(--text-light);">4 atividades · Clique nas respostas!</p>
+
+        <div class="nav-buttons">
+            <button class="btn btn-primary" onclick="goToScreen(1)">COMEÇAR ▶️</button>
+        </div>
+    </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SCREEN 1: QUIZ — Qual é a virtude? -->
+<!-- ================================================================ -->
+<div class="screen" id="screen-1">
+    <div class="activity-header">
+        <div class="activity-number">ATIVIDADE 1 de 4</div>
+        <div class="activity-title">🔍 Qual é a virtude?</div>
+        <div class="activity-instruction">Veja a cena. Escolha a virtude certa!</div>
+    </div>
+
+    <div id="quiz-container"></div>
+
+    <div class="feedback" id="quiz-feedback">
+        <div class="feedback-emoji" id="quiz-feedback-emoji"></div>
+        <div class="feedback-text" id="quiz-feedback-text"></div>
+    </div>
+
+    <div class="nav-buttons" id="quiz-nav" style="display:none;">
+        <button class="btn btn-primary" id="quiz-next-btn">PRÓXIMO ▶️</button>
+    </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SCREEN 2: MATCHING — Ligar situação à virtude -->
+<!-- ================================================================ -->
+<div class="screen" id="screen-2">
+    <div class="activity-header">
+        <div class="activity-number">ATIVIDADE 2 de 4</div>
+        <div class="activity-title">🔗 Ligue a situação à virtude</div>
+        <div class="activity-instruction">Clique na situação, depois na virtude!</div>
+    </div>
+
+    <div class="match-container" id="match-container">
+        <div class="match-column situations">
+            <h3>📷 Situação</h3>
+            <div id="match-situations"></div>
+        </div>
+        <div class="match-column virtues">
+            <h3>💎 Virtude</h3>
+            <div id="match-virtues"></div>
+        </div>
+    </div>
+
+    <div class="feedback" id="match-feedback">
+        <div class="feedback-emoji" id="match-feedback-emoji"></div>
+        <div class="feedback-text" id="match-feedback-text"></div>
+    </div>
+
+    <div class="nav-buttons" id="match-nav" style="display:none;">
+        <button class="btn btn-primary" onclick="goToScreen(3)">PRÓXIMO ▶️</button>
+    </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SCREEN 3: SORT — Certo ou Errado? -->
+<!-- ================================================================ -->
+<div class="screen" id="screen-3">
+    <div class="activity-header">
+        <div class="activity-number">ATIVIDADE 3 de 4</div>
+        <div class="activity-title">✅❌ Certo ou Errado?</div>
+        <div class="activity-instruction">Veja a ação. É virtude ou não?</div>
+    </div>
+
+    <div class="sort-counter" id="sort-counter"></div>
+
+    <div class="sort-scenario" id="sort-scenario">
+        <div class="sort-emoji" id="sort-emoji"></div>
+        <div class="sort-text" id="sort-text"></div>
+    </div>
+
+    <div class="sort-buckets">
+        <div class="sort-bucket" id="sort-yes" onclick="sortAnswer(true)">
+            <div class="bucket-emoji">✅</div>
+            <div class="bucket-label">VIRTUDE</div>
+            <div style="font-size:0.85rem; color:var(--text-light);">Certo / Bom</div>
+        </div>
+        <div class="sort-bucket" id="sort-no" onclick="sortAnswer(false)">
+            <div class="bucket-emoji">❌</div>
+            <div class="bucket-label">NÃO É VIRTUDE</div>
+            <div style="font-size:0.85rem; color:var(--text-light);">Errado / Ruim</div>
+        </div>
+    </div>
+
+    <div class="feedback" id="sort-feedback">
+        <div class="feedback-emoji" id="sort-feedback-emoji"></div>
+        <div class="feedback-text" id="sort-feedback-text"></div>
+    </div>
+
+    <div class="nav-buttons" id="sort-nav" style="display:none;">
+        <button class="btn btn-primary" id="sort-next-btn">PRÓXIMO ▶️</button>
+    </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SCREEN 4: BUILD — Monte a virtude -->
+<!-- ================================================================ -->
+<div class="screen" id="screen-4">
+    <div class="activity-header">
+        <div class="activity-number">ATIVIDADE 4 de 4</div>
+        <div class="activity-title">🧩 Monte a Virtude</div>
+        <div class="activity-instruction">Escolha as ações que combinam com a virtude!</div>
+    </div>
+
+    <div class="build-target" id="build-target">
+        <div class="target-emoji" id="build-target-emoji"></div>
+        <div class="target-virtue" id="build-target-name"></div>
+        <div class="target-instruction" id="build-target-instruction"></div>
+    </div>
+
+    <div class="build-collected" id="build-collected"></div>
+
+    <div class="build-grid" id="build-grid"></div>
+
+    <div class="feedback" id="build-feedback">
+        <div class="feedback-emoji" id="build-feedback-emoji"></div>
+        <div class="feedback-text" id="build-feedback-text"></div>
+    </div>
+
+    <div class="nav-buttons" id="build-nav" style="display:none;">
+        <button class="btn btn-primary" id="build-next-btn">PRÓXIMO ▶️</button>
+    </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SCREEN 5: FINAL -->
+<!-- ================================================================ -->
+<div class="screen" id="screen-final">
+    <div class="final-card">
+        <div class="final-trophy">🏆</div>
+        <h2>Parabéns!</h2>
+        <div class="final-score" id="final-score"></div>
+        <div class="final-stars" id="final-stars"></div>
+
+        <p style="font-size:1.15rem; margin-bottom:12px;">Você aprendeu sobre virtudes! 🎉</p>
+        <p style="font-size:1rem; color:var(--text-light); margin-bottom:12px;">Lembre-se: praticar virtudes faz o mundo melhor! 🌍</p>
+
+        <div class="virtues-review">
+            <div class="virtue-badge"><span class="badge-emoji">🤝</span><span class="badge-name">Generosidade</span></div>
+            <div class="virtue-badge"><span class="badge-emoji">💛</span><span class="badge-name">Respeito</span></div>
+            <div class="virtue-badge"><span class="badge-emoji">💪</span><span class="badge-name">Coragem</span></div>
+            <div class="virtue-badge"><span class="badge-emoji">⚖️</span><span class="badge-name">Justiça</span></div>
+            <div class="virtue-badge"><span class="badge-emoji">🕊️</span><span class="badge-name">Paz</span></div>
+            <div class="virtue-badge"><span class="badge-emoji">🫂</span><span class="badge-name">Empatia</span></div>
+            <div class="virtue-badge"><span class="badge-emoji">🤞</span><span class="badge-name">Honestidade</span></div>
+            <div class="virtue-badge"><span class="badge-emoji">⏳</span><span class="badge-name">Paciência</span></div>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="btn btn-success" onclick="location.reload()">🔄 JOGAR DE NOVO</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== CONFETTI ===== -->
+<div class="confetti-container" id="confetti-container"></div>
+
+<script>
+// ===================================================
+// STATE
+// ===================================================
+let totalStars = 0;
+let activitiesCompleted = 0;
+
+// ===================================================
+// PROGRESS
+// ===================================================
+function updateProgress() {
+    const pct = (activitiesCompleted / 4) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = activitiesCompleted + ' / 4';
+    document.getElementById('progressStars').textContent = '⭐ ' + totalStars;
+}
+
+// ===================================================
+// NAVIGATION
+// ===================================================
+function goToScreen(n) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    const target = n === 'final' ? 'screen-final' : 'screen-' + n;
+    document.getElementById(target).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (n === 1) initQuiz();
+    if (n === 2) initMatch();
+    if (n === 3) initSort();
+    if (n === 4) initBuild();
+    if (n === 'final') showFinal();
+}
+
+// ===================================================
+// CONFETTI
+// ===================================================
+function launchConfetti() {
+    const container = document.getElementById('confetti-container');
+    const emojis = ['⭐', '🌟', '✨', '🎉', '💛', '💚', '💙', '❤️', '🧡'];
+    for (let i = 0; i < 30; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        c.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        c.style.left = Math.random() * 100 + '%';
+        c.style.animationDelay = Math.random() * 1 + 's';
+        c.style.animationDuration = (2 + Math.random() * 2) + 's';
+        container.appendChild(c);
+    }
+    setTimeout(() => { container.innerHTML = ''; }, 4000);
+}
+
+function showFeedback(id, success, text) {
+    const fb = document.getElementById(id);
+    const emoji = document.getElementById(id + '-emoji');
+    const txt = document.getElementById(id + '-text');
+    fb.className = 'feedback show ' + (success ? 'success' : 'error');
+    emoji.textContent = success ? '🎉' : '😕';
+    txt.textContent = text;
+}
+
+// ===================================================
+// ACTIVITY 1: QUIZ
+// ===================================================
+const quizData = [
+    {
+        scene: '👦➡️🧓💺',
+        sceneBg: 'linear-gradient(135deg, #EBF5FB, #D6EAF8)',
+        question: 'Um jovem dá o lugar no ônibus para um idoso. Qual virtude?',
+        options: [
+            { emoji: '💛', text: 'Respeito', correct: true },
+            { emoji: '💰', text: 'Ganância', correct: false },
+            { emoji: '😡', text: 'Raiva', correct: false },
+            { emoji: '😴', text: 'Preguiça', correct: false },
+        ]
+    },
+    {
+        scene: '👩‍🦯🚶‍♀️🤝🚶',
+        sceneBg: 'linear-gradient(135deg, #FEF9E7, #FCF3CF)',
+        question: 'Uma pessoa ajuda alguém a atravessar a rua. Qual virtude?',
+        options: [
+            { emoji: '🤥', text: 'Mentira', correct: false },
+            { emoji: '🤝', text: 'Generosidade', correct: true },
+            { emoji: '😤', text: 'Egoísmo', correct: false },
+            { emoji: '🙈', text: 'Indiferença', correct: false },
+        ]
+    },
+    {
+        scene: '👧📚✋😊',
+        sceneBg: 'linear-gradient(135deg, #F4ECF7, #E8DAEF)',
+        question: 'Uma menina encontra um celular perdido e devolve ao dono. Qual virtude?',
+        options: [
+            { emoji: '💪', text: 'Coragem', correct: false },
+            { emoji: '🎭', text: 'Falsidade', correct: false },
+            { emoji: '🤞', text: 'Honestidade', correct: true },
+            { emoji: '😏', text: 'Esperteza', correct: false },
+        ]
+    },
+    {
+        scene: '🧒😢➡️🧒🤗',
+        sceneBg: 'linear-gradient(135deg, #E8F8F5, #D1F2EB)',
+        question: 'Uma criança consola o amigo triste. Qual virtude?',
+        options: [
+            { emoji: '🫂', text: 'Empatia', correct: true },
+            { emoji: '💤', text: 'Preguiça', correct: false },
+            { emoji: '🏃', text: 'Pressa', correct: false },
+            { emoji: '😈', text: 'Maldade', correct: false },
+        ]
+    },
+    {
+        scene: '🦸‍♂️🔥🏠➡️👨‍👩‍👧',
+        sceneBg: 'linear-gradient(135deg, #FDEDEC, #F5B7B1)',
+        question: 'Um bombeiro entra na casa em chamas para salvar a família. Qual virtude?',
+        options: [
+            { emoji: '😱', text: 'Medo', correct: false },
+            { emoji: '💪', text: 'Coragem', correct: true },
+            { emoji: '🤷', text: 'Indiferença', correct: false },
+            { emoji: '💰', text: 'Ambição', correct: false },
+        ]
+    }
+];
+
+let quizIndex = 0;
+let quizScore = 0;
+
+function initQuiz() {
+    quizIndex = 0;
+    quizScore = 0;
+    showQuizQuestion();
+}
+
+function showQuizQuestion() {
+    const q = quizData[quizIndex];
+    const container = document.getElementById('quiz-container');
+    document.getElementById('quiz-feedback').className = 'feedback';
+    document.getElementById('quiz-nav').style.display = 'none';
+
+    let optionsHTML = q.options.map((o, i) =>
+        `<div class="option-btn" onclick="quizAnswer(${i})" id="quiz-opt-${i}">
+            <span class="option-emoji">${o.emoji}</span>
+            <span class="option-text">${o.text}</span>
+        </div>`
+    ).join('');
+
+    container.innerHTML = `
+        <div class="scenario-card">
+            <div class="scenario-image" style="background:${q.sceneBg}">
+                <div class="scene">${q.scene}</div>
+            </div>
+            <div class="scenario-question">${q.question}</div>
+        </div>
+        <div class="options-grid">${optionsHTML}</div>
+    `;
+}
+
+function quizAnswer(idx) {
+    const q = quizData[quizIndex];
+    const correct = q.options[idx].correct;
+
+    document.querySelectorAll('.option-btn').forEach((el, i) => {
+        el.classList.add('disabled');
+        if (q.options[i].correct) el.classList.add('correct');
+        if (i === idx && !correct) el.classList.add('wrong');
+    });
+
+    if (correct) {
+        quizScore++;
+        totalStars++;
+        showFeedback('quiz-feedback', true, 'Certo! ⭐ ' + q.options[idx].text + '!');
+        launchConfetti();
+    } else {
+        const correctOpt = q.options.find(o => o.correct);
+        showFeedback('quiz-feedback', false, 'A resposta certa é: ' + correctOpt.text);
+    }
+
+    updateProgress();
+    document.getElementById('quiz-nav').style.display = 'flex';
+    document.getElementById('quiz-next-btn').onclick = function() {
+        quizIndex++;
+        if (quizIndex < quizData.length) {
+            showQuizQuestion();
+        } else {
+            activitiesCompleted++;
+            updateProgress();
+            goToScreen(2);
+        }
+    };
+}
+
+// ===================================================
+// ACTIVITY 2: MATCHING
+// ===================================================
+const matchData = [
+    { situation: '🍞➡️🧑‍🤝‍🧑', sitText: 'Dar comida', virtue: '🤝', virText: 'Generosidade' },
+    { situation: '⏳😌🧘', sitText: 'Esperar a vez', virtue: '⏳', virText: 'Paciência' },
+    { situation: '🗣️✅📢', sitText: 'Falar a verdade', virtue: '🤞', virText: 'Honestidade' },
+    { situation: '⚖️🍰👧👦', sitText: 'Dividir igual', virtue: '⚖️', virText: 'Justiça' },
+    { situation: '🕊️🤝😊', sitText: 'Fazer as pazes', virtue: '🕊️', virText: 'Paz' },
+];
+
+let matchSelected = null;
+let matchCompleted = 0;
+
+function initMatch() {
+    matchSelected = null;
+    matchCompleted = 0;
+    document.getElementById('match-feedback').className = 'feedback';
+    document.getElementById('match-nav').style.display = 'none';
+
+    const shuffledSit = [...matchData].sort(() => Math.random() - 0.5);
+    const shuffledVir = [...matchData].sort(() => Math.random() - 0.5);
+
+    document.getElementById('match-situations').innerHTML = shuffledSit.map((m, i) =>
+        `<div class="match-item" data-type="situation" data-id="${matchData.indexOf(m)}" onclick="matchClick(this)">
+            <span class="item-emoji">${m.situation}</span>
+            <span class="item-text">${m.sitText}</span>
+        </div>`
+    ).join('');
+
+    document.getElementById('match-virtues').innerHTML = shuffledVir.map((m, i) =>
+        `<div class="match-item" data-type="virtue" data-id="${matchData.indexOf(m)}" onclick="matchClick(this)">
+            <span class="item-emoji">${m.virtue}</span>
+            <span class="item-text">${m.virText}</span>
+        </div>`
+    ).join('');
+}
+
+function matchClick(el) {
+    if (el.classList.contains('matched')) return;
+
+    if (!matchSelected) {
+        document.querySelectorAll('.match-item').forEach(e => e.classList.remove('selected'));
+        el.classList.add('selected');
+        matchSelected = el;
+    } else {
+        const type1 = matchSelected.dataset.type;
+        const type2 = el.dataset.type;
+
+        if (type1 === type2) {
+            matchSelected.classList.remove('selected');
+            el.classList.add('selected');
+            matchSelected = el;
+            return;
+        }
+
+        const id1 = matchSelected.dataset.id;
+        const id2 = el.dataset.id;
+
+        if (id1 === id2) {
+            matchSelected.classList.add('matched');
+            matchSelected.classList.remove('selected');
+            el.classList.add('matched');
+            matchCompleted++;
+            totalStars++;
+            updateProgress();
+            launchConfetti();
+            showFeedback('match-feedback', true, 'Certo! ⭐');
+            setTimeout(() => {
+                document.getElementById('match-feedback').className = 'feedback';
+            }, 1200);
+        } else {
+            el.classList.add('wrong-match');
+            matchSelected.classList.add('wrong-match');
+            showFeedback('match-feedback', false, 'Tente de novo!');
+            setTimeout(() => {
+                el.classList.remove('wrong-match');
+                matchSelected.classList.remove('wrong-match');
+                matchSelected.classList.remove('selected');
+                matchSelected = null;
+                document.getElementById('match-feedback').className = 'feedback';
+            }, 800);
+            return;
+        }
+
+        matchSelected = null;
+
+        if (matchCompleted >= matchData.length) {
+            setTimeout(() => {
+                showFeedback('match-feedback', true, 'Tudo certo! Você ligou todas! 🌟');
+                activitiesCompleted++;
+                updateProgress();
+                document.getElementById('match-nav').style.display = 'flex';
+            }, 500);
+        }
+    }
+}
+
+// ===================================================
+// ACTIVITY 3: SORT (Certo ou Errado)
+// ===================================================
+const sortData = [
+    { emoji: '🤝🍎➡️👦', text: 'Dividir a comida com o amigo', isVirtue: true, virtue: 'Generosidade' },
+    { emoji: '😡👊💢', text: 'Bater em alguém', isVirtue: false, virtue: '' },
+    { emoji: '🗑️🌳🚮', text: 'Jogar lixo no lixo', isVirtue: true, virtue: 'Responsabilidade' },
+    { emoji: '📱🤫👀', text: 'Mexer no celular do outro escondido', isVirtue: false, virtue: '' },
+    { emoji: '🧹🏠😊', text: 'Ajudar a limpar a casa', isVirtue: true, virtue: 'Cooperação' },
+    { emoji: '🗣️😤🤬', text: 'Xingar uma pessoa', isVirtue: false, virtue: '' },
+    { emoji: '📖👴😊', text: 'Ler para um idoso', isVirtue: true, virtue: 'Carinho' },
+    { emoji: '🍬🤫😏', text: 'Pegar doce escondido', isVirtue: false, virtue: '' },
+];
+
+let sortIndex = 0;
+let sortScore = 0;
+
+function initSort() {
+    sortIndex = 0;
+    sortScore = 0;
+    document.getElementById('sort-feedback').className = 'feedback';
+    document.getElementById('sort-nav').style.display = 'none';
+    showSortItem();
+}
+
+function showSortItem() {
+    const item = sortData[sortIndex];
+    document.getElementById('sort-emoji').textContent = item.emoji;
+    document.getElementById('sort-text').textContent = item.text;
+    document.getElementById('sort-counter').textContent = (sortIndex + 1) + ' de ' + sortData.length;
+    document.getElementById('sort-feedback').className = 'feedback';
+    document.getElementById('sort-yes').className = 'sort-bucket';
+    document.getElementById('sort-no').className = 'sort-bucket';
+    document.getElementById('sort-nav').style.display = 'none';
+}
+
+function sortAnswer(answer) {
+    const item = sortData[sortIndex];
+    const correct = answer === item.isVirtue;
+
+    if (correct) {
+        sortScore++;
+        totalStars++;
+        const bucket = answer ? 'sort-yes' : 'sort-no';
+        document.getElementById(bucket).classList.add('correct-bucket');
+        const msg = item.isVirtue ? 'Certo! É virtude: ' + item.virtue + ' ⭐' : 'Certo! Isso NÃO é virtude ⭐';
+        showFeedback('sort-feedback', true, msg);
+        launchConfetti();
+    } else {
+        const bucket = answer ? 'sort-yes' : 'sort-no';
+        document.getElementById(bucket).classList.add('wrong-bucket');
+        const msg = item.isVirtue ? 'Essa ação É uma virtude!' : 'Essa ação NÃO é uma virtude!';
+        showFeedback('sort-feedback', false, msg);
+    }
+
+    updateProgress();
+    document.getElementById('sort-nav').style.display = 'flex';
+    document.getElementById('sort-next-btn').onclick = function() {
+        sortIndex++;
+        if (sortIndex < sortData.length) {
+            showSortItem();
+        } else {
+            activitiesCompleted++;
+            updateProgress();
+            goToScreen(4);
+        }
+    };
+}
+
+// ===================================================
+// ACTIVITY 4: BUILD A VIRTUE
+// ===================================================
+const buildRounds = [
+    {
+        virtue: 'Generosidade',
+        emoji: '🤝',
+        instruction: 'Escolha 3 ações de Generosidade!',
+        correct: [
+            { emoji: '🍞➡️🧑', text: 'Dar comida' },
+            { emoji: '🧸➡️👧', text: 'Doar brinquedo' },
+            { emoji: '📚➡️👦', text: 'Emprestar livro' },
+        ],
+        wrong: [
+            { emoji: '🤫🍬', text: 'Esconder doce' },
+            { emoji: '😤👊', text: 'Brigar' },
+            { emoji: '🙈💤', text: 'Ignorar pedido' },
+        ]
+    },
+    {
+        virtue: 'Respeito',
+        emoji: '💛',
+        instruction: 'Escolha 3 ações de Respeito!',
+        correct: [
+            { emoji: '🗣️👂', text: 'Ouvir o outro' },
+            { emoji: '🚪🤫', text: 'Pedir licença' },
+            { emoji: '🧓💺', text: 'Ceder o lugar' },
+        ],
+        wrong: [
+            { emoji: '📱🗣️', text: 'Mexer no celular enquanto falam' },
+            { emoji: '😂👉', text: 'Rir do colega' },
+            { emoji: '🗑️🌳', text: 'Jogar lixo no chão' },
+        ]
+    },
+    {
+        virtue: 'Coragem',
+        emoji: '💪',
+        instruction: 'Escolha 3 ações de Coragem!',
+        correct: [
+            { emoji: '🗣️✋', text: 'Defender o amigo' },
+            { emoji: '🤚📢', text: 'Falar a verdade' },
+            { emoji: '🆘🏃', text: 'Pedir ajuda' },
+        ],
+        wrong: [
+            { emoji: '🙈🤫', text: 'Ficar calado com injustiça' },
+            { emoji: '😰🏃‍♂️', text: 'Fugir do problema' },
+            { emoji: '😤👊', text: 'Usar violência' },
+        ]
+    }
+];
+
+let buildRoundIndex = 0;
+let buildCorrectCount = 0;
+let buildCurrentCards = [];
+
+function initBuild() {
+    buildRoundIndex = 0;
+    buildCorrectCount = 0;
+    document.getElementById('build-feedback').className = 'feedback';
+    document.getElementById('build-nav').style.display = 'none';
+    showBuildRound();
+}
+
+function showBuildRound() {
+    const round = buildRounds[buildRoundIndex];
+    buildCorrectCount = 0;
+
+    document.getElementById('build-target-emoji').textContent = round.emoji;
+    document.getElementById('build-target-name').textContent = round.virtue;
+    document.getElementById('build-target-instruction').textContent = round.instruction;
+    document.getElementById('build-collected').innerHTML = '';
+    document.getElementById('build-feedback').className = 'feedback';
+    document.getElementById('build-nav').style.display = 'none';
+
+    buildCurrentCards = [...round.correct, ...round.wrong].sort(() => Math.random() - 0.5);
+
+    document.getElementById('build-grid').innerHTML = buildCurrentCards.map((card, i) =>
+        `<div class="build-card" onclick="buildPick(${i})" id="build-card-${i}" data-correct="${round.correct.includes(card)}">
+            <span class="build-emoji">${card.emoji}</span>
+            <span class="build-text">${card.text}</span>
+        </div>`
+    ).join('');
+}
+
+function buildPick(idx) {
+    const card = document.getElementById('build-card-' + idx);
+    if (card.classList.contains('picked') || card.classList.contains('wrong-pick')) return;
+
+    const isCorrect = card.dataset.correct === 'true';
+
+    if (isCorrect) {
+        card.classList.add('picked');
+        buildCorrectCount++;
+        totalStars++;
+        updateProgress();
+
+        const emoji = card.querySelector('.build-emoji').textContent;
+        document.getElementById('build-collected').innerHTML +=
+            `<div class="collected-item">${emoji}</div>`;
+
+        if (buildCorrectCount >= 3) {
+            showFeedback('build-feedback', true, 'Perfeito! Você montou a virtude! 🌟');
+            launchConfetti();
+            document.getElementById('build-nav').style.display = 'flex';
+            document.getElementById('build-next-btn').onclick = function() {
+                buildRoundIndex++;
+                if (buildRoundIndex < buildRounds.length) {
+                    showBuildRound();
+                } else {
+                    activitiesCompleted++;
+                    updateProgress();
+                    goToScreen('final');
+                }
+            };
+            document.querySelectorAll('.build-card').forEach(c => c.style.pointerEvents = 'none');
+        } else {
+            showFeedback('build-feedback', true, 'Boa! Mais ' + (3 - buildCorrectCount) + '! ⭐');
+            setTimeout(() => {
+                document.getElementById('build-feedback').className = 'feedback';
+            }, 1000);
+        }
+    } else {
+        card.classList.add('wrong-pick');
+        showFeedback('build-feedback', false, 'Essa não combina. Tente outra!');
+        setTimeout(() => {
+            card.classList.remove('wrong-pick');
+            document.getElementById('build-feedback').className = 'feedback';
+        }, 1000);
+    }
+}
+
+// ===================================================
+// FINAL SCREEN
+// ===================================================
+function showFinal() {
+    const maxStars = quizData.length + matchData.length + sortData.length + (buildRounds.length * 3);
+    document.getElementById('final-score').textContent = '⭐ ' + totalStars + ' de ' + maxStars + ' estrelas';
+
+    let starStr = '';
+    const pct = totalStars / maxStars;
+    if (pct >= 0.8) starStr = '⭐⭐⭐';
+    else if (pct >= 0.5) starStr = '⭐⭐';
+    else starStr = '⭐';
+    document.getElementById('final-stars').textContent = starStr;
+
+    launchConfetti();
+    setTimeout(launchConfetti, 1500);
+}
+
+// Init progress
+updateProgress();
+</script>
+
+</body>
+</html>
