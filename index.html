@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virtudes — PUC Minas · CMAEE</title>
+    <title>Virtudes & Inclusão Digital — PUC Minas · CMAEE</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Lilita+One&display=swap" rel="stylesheet">
     <style>
@@ -27,6 +27,8 @@
             --teal-bg: #F0FDFA;
             --pink: #EC4899;
             --pink-bg: #FDF2F8;
+            --cyan: #06B6D4;
+            --cyan-bg: #ECFEFF;
             --text: #1E293B;
             --text-mid: #475569;
             --text-light: #94A3B8;
@@ -98,6 +100,7 @@
         .btn:active { transform:translateY(0); }
         .btn-primary { background:linear-gradient(135deg,var(--primary),var(--primary-glow)); color:#fff; }
         .btn-success { background:linear-gradient(135deg,var(--success),#4ADE80); color:#fff; }
+        .btn-cyan { background:linear-gradient(135deg,var(--cyan),#22D3EE); color:#fff; }
         .nav-buttons { display:flex; justify-content:center; gap:12px; margin-top:22px; flex-wrap:wrap; }
 
         /* ACTIVITY HEADER */
@@ -118,9 +121,30 @@
         .toast .t-emoji { font-size:2.2rem; }
         .toast .t-text { font-weight:700; font-size:1.05rem; margin-top:2px; }
 
+        /* SCENE IMAGE BOX */
+        .scene-img-box {
+            position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+            border-radius:var(--radius) var(--radius) 0 0;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            display:flex; align-items:center; justify-content:center;
+        }
+        .scene-img-box img {
+            width:100%; height:100%; object-fit:cover; transition:opacity .5s ease;
+        }
+        .scene-img-box .img-loader {
+            position:absolute; font-size:2.5rem; animation:spin 1.2s linear infinite;
+        }
+        @keyframes spin { to{transform:rotate(360deg)} }
+        .scene-img-box .img-overlay {
+            position:absolute; bottom:0; left:0; right:0;
+            background:linear-gradient(transparent, rgba(0,0,0,0.55));
+            padding:12px 16px; color:#fff; font-weight:700; font-size:.95rem;
+        }
+        .scene-img-box .img-emoji-fallback {
+            font-size:clamp(3.5rem,10vw,6rem); line-height:1.2; text-align:center;
+        }
+
         /* MODULE 1 — QUIZ */
-        .scene-box { text-align:center; padding:28px 16px 18px; }
-        .scene-emojis { font-size:clamp(3.5rem,10vw,6rem); line-height:1.2; }
         .scene-question { padding:16px 20px; text-align:center; font-size:1.1rem; font-weight:700; border-top:2px solid var(--border); }
         .opts-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:16px 0; }
         .opt-btn {
@@ -144,18 +168,20 @@
         .match-col.vir h3 { background:var(--purple-bg); color:var(--purple); }
         .m-item {
             background:var(--card); border:3px solid var(--border); border-radius:12px;
-            padding:14px; margin-bottom:8px; text-align:center; cursor:pointer;
-            transition:all .25s ease; user-select:none;
+            padding:10px; margin-bottom:8px; text-align:center; cursor:pointer;
+            transition:all .25s ease; user-select:none; display:flex; align-items:center; gap:10px;
         }
         .m-item:hover { transform:translateY(-2px); box-shadow:var(--shadow); }
-        .m-item .mi-emoji { font-size:2rem; display:block; margin-bottom:2px; }
-        .m-item .mi-text { font-weight:700; font-size:.9rem; }
+        .m-item .mi-img { width:56px; height:56px; border-radius:10px; object-fit:cover; flex-shrink:0; }
+        .m-item .mi-emoji { font-size:2rem; flex-shrink:0; }
+        .m-item .mi-text { font-weight:700; font-size:.9rem; text-align:left; }
         .m-item.sel { border-color:var(--blue); background:var(--blue-bg); }
         .m-item.ok { border-color:var(--success); background:var(--success-bg); pointer-events:none; }
         .m-item.bad { border-color:var(--error); background:var(--error-bg); animation:shake .4s ease; }
 
         /* MODULE 3 — SORT */
-        .sort-card { text-align:center; padding:24px; }
+        .sort-card { text-align:center; padding:20px; }
+        .sort-card .s-img { width:100%; max-width:300px; aspect-ratio:4/3; object-fit:cover; border-radius:14px; margin-bottom:10px; }
         .sort-card .s-emoji { font-size:clamp(3rem,9vw,5rem); }
         .sort-card .s-text { font-weight:700; font-size:1.05rem; margin-top:6px; }
         .sort-counter { text-align:center; font-weight:700; font-size:.9rem; color:var(--text-light); margin-bottom:14px; }
@@ -173,6 +199,7 @@
 
         /* MODULE 4 — BUILD */
         .build-target { text-align:center; padding:22px; }
+        .build-target .bt-img { width:80px; height:80px; border-radius:50%; object-fit:cover; margin:0 auto 8px; border:4px solid var(--teal); }
         .build-target .bt-emoji { font-size:3.2rem; }
         .build-target .bt-name { font-family:'Lilita One',cursive; font-size:1.5rem; color:var(--teal); }
         .build-target .bt-inst { font-weight:600; color:var(--text-mid); margin-top:4px; }
@@ -200,7 +227,6 @@
         }
         .img-scene img { width:100%; height:100%; object-fit:cover; transition:opacity .4s; }
         .img-scene .img-loader { position:absolute; font-size:2.5rem; animation:spin 1.2s linear infinite; }
-        @keyframes spin { to{transform:rotate(360deg)} }
         .img-credit {
             font-size:.7rem; color:var(--text-light); text-align:right; padding:4px 12px;
             background:rgba(255,255,255,.85); position:absolute; bottom:0; right:0; border-radius:8px 0 0 0;
@@ -218,10 +244,11 @@
         .hash-btn.dim { pointer-events:none; opacity:.4; }
 
         /* MODULE 6 — STORY */
-        .story-panel { padding:24px; text-align:center; }
-        .story-scene-emoji { font-size:clamp(3rem,8vw,5rem); margin-bottom:8px; }
-        .story-narration { font-size:1.1rem; font-weight:600; line-height:1.6; margin-bottom:4px; }
-        .story-prompt { font-size:1rem; font-weight:700; color:var(--pink); margin-top:8px; }
+        .story-panel { padding:0; text-align:center; overflow:hidden; }
+        .story-scene-img { width:100%; aspect-ratio:16/9; object-fit:cover; }
+        .story-scene-emoji { font-size:clamp(3rem,8vw,5rem); margin:20px 0 8px; }
+        .story-narration { font-size:1.1rem; font-weight:600; line-height:1.6; padding:16px 20px 4px; }
+        .story-prompt { font-size:1rem; font-weight:700; color:var(--pink); padding:4px 20px 16px; }
         .story-opts { display:grid; grid-template-columns:1fr; gap:10px; margin:16px auto; max-width:500px; }
         .story-opt {
             background:var(--card); border:3px solid var(--border); border-radius:14px;
@@ -239,12 +266,51 @@
         .story-dot.done { background:var(--success); }
         .story-dot.current { background:var(--pink); transform:scale(1.3); }
 
+        /* MODULE 7 — INCLUSÃO DIGITAL */
+        .digi-scenario {
+            background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+            overflow: hidden; margin-bottom:16px;
+        }
+        .digi-scenario .digi-img-wrap {
+            position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+            background: linear-gradient(135deg, var(--cyan-bg), var(--blue-bg));
+            display:flex; align-items:center; justify-content:center;
+        }
+        .digi-scenario .digi-img-wrap img {
+            width:100%; height:100%; object-fit:cover;
+        }
+        .digi-scenario .digi-img-wrap .digi-icon {
+            font-size:5rem; text-align:center;
+        }
+        .digi-scenario .digi-body { padding:18px 20px; }
+        .digi-scenario .digi-body h3 { font-family:'Lilita One',cursive; font-size:1.2rem; color:var(--cyan); margin-bottom:4px; }
+        .digi-scenario .digi-body p { font-size:1rem; font-weight:600; color:var(--text-mid); line-height:1.5; }
+        .digi-opts { display:grid; grid-template-columns:1fr; gap:10px; margin:16px 0; max-width:550px; margin-left:auto; margin-right:auto; }
+        .digi-opt {
+            background:var(--card); border:3px solid var(--border); border-radius:14px;
+            padding:16px; cursor:pointer; transition:all .25s ease;
+            display:flex; align-items:center; gap:12px;
+        }
+        .digi-opt:hover { border-color:var(--cyan); transform:translateY(-2px); box-shadow:var(--shadow); }
+        .digi-opt .do-icon { font-size:2rem; flex-shrink:0; }
+        .digi-opt .do-text { font-weight:700; font-size:.95rem; text-align:left; }
+        .digi-opt.d-correct { border-color:var(--success); background:var(--success-bg); }
+        .digi-opt.d-wrong { border-color:var(--error); background:var(--error-bg); animation:shake .4s ease; }
+        .digi-opt.d-dim { pointer-events:none; opacity:.4; }
+        .digi-tip {
+            background:var(--cyan-bg); border:2px solid var(--cyan); border-radius:14px;
+            padding:14px 18px; margin-top:12px; display:none;
+        }
+        .digi-tip.show { display:block; animation:screenIn .3s ease; }
+        .digi-tip .dt-title { font-weight:800; color:var(--cyan); margin-bottom:4px; }
+        .digi-tip .dt-text { font-weight:600; color:var(--text-mid); line-height:1.5; }
+
         /* WELCOME & FINAL */
         .welcome-card,.final-card { text-align:center; padding:36px 24px; }
         .welcome-card h2,.final-card h2 { font-family:'Lilita One',cursive; font-size:1.8rem; color:var(--primary); margin:10px 0; }
         .welcome-hero { font-size:4.5rem; animation:bounce 2s ease-in-out infinite; }
         @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-        .module-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; margin:20px 0; }
+        .module-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:10px; margin:20px 0; }
         .module-preview { background:var(--bg); border-radius:14px; padding:14px 8px; text-align:center; }
         .module-preview .mp-emoji { font-size:2rem; display:block; margin-bottom:2px; }
         .module-preview .mp-name { font-weight:700; font-size:.8rem; }
@@ -273,14 +339,14 @@
     <div class="header-shape hs1"></div>
     <div class="header-shape hs2"></div>
     <div class="header-shape hs3"></div>
-    <h1>🌟 Virtudes 🌟</h1>
-    <div class="tagline">Aprenda o que é bom, certo e bonito!</div>
+    <h1>🌟 Virtudes & Inclusão Digital 🌟</h1>
+    <div class="tagline">Aprenda o que é bom, certo e bonito — e use a tecnologia!</div>
     <div class="inst">PUC Minas · CMAEE Dr. Tarso de Coimbra</div>
 </div>
 
 <div class="progress-wrap">
     <div class="progress-inner">
-        <span class="progress-label" id="pLabel">0 / 6</span>
+        <span class="progress-label" id="pLabel">0 / 7</span>
         <div class="progress-track"><div class="progress-bar" id="pBar"></div></div>
         <span class="progress-stars" id="pStars">⭐ 0</span>
     </div>
@@ -290,6 +356,77 @@
 <div class="confetti-box" id="confettiBox"></div>
 
 <script>
+/* ============================================================
+   IMAGE DATABASE — URLs livres de direitos (Pixabay/Pexels/Wikimedia)
+   Usamos imagens estáticas hospedadas em CDNs públicos.
+   Para cada cena, temos: url da imagem + emoji fallback
+   ============================================================ */
+const IMG = {
+    // Módulo 1 — cenas de virtudes
+    jovem_idoso: { url:'https://images.pexels.com/photos/3768131/pexels-photo-3768131.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop', emoji:'👦➡️🧓💺', alt:'Jovem ajudando idoso' },
+    ajudar_rua: { url:'https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop', emoji:'👩‍🦯🚶‍♀️🤝🚶', alt:'Pessoas se ajudando' },
+    devolver_celular: { url:'https://images.pexels.com/photos/4559592/pexels-photo-4559592.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop', emoji:'👧📱✋😊', alt:'Menina com celular' },
+    consolar: { url:'https://images.pexels.com/photos/8363104/pexels-photo-8363104.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop', emoji:'🧒😢➡️🧒🤗', alt:'Criança consolando amigo' },
+    bombeiro: { url:'https://images.pexels.com/photos/5765827/pexels-photo-5765827.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop', emoji:'🦸‍♂️🔥🏠', alt:'Bombeiro em ação' },
+    medica: { url:'https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop', emoji:'👩‍⚕️😊💊', alt:'Médica cuidando de paciente' },
+
+    // Módulo 2 — match
+    dar_comida: { url:'https://images.pexels.com/photos/6995104/pexels-photo-6995104.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop', emoji:'🍞➡️🧑‍🤝‍🧑', alt:'Doar alimentos' },
+    esperar: { url:'https://images.pexels.com/photos/8363034/pexels-photo-8363034.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop', emoji:'⏳😌🧘', alt:'Esperar com paciência' },
+    verdade: { url:'https://images.pexels.com/photos/7176319/pexels-photo-7176319.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop', emoji:'🗣️✅', alt:'Falar a verdade' },
+    dividir: { url:'https://images.pexels.com/photos/8613089/pexels-photo-8613089.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop', emoji:'⚖️🍰', alt:'Dividir igualmente' },
+    pazes: { url:'https://images.pexels.com/photos/5257526/pexels-photo-5257526.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop', emoji:'🕊️🤝', alt:'Fazer as pazes' },
+    ouvir_idoso: { url:'https://images.pexels.com/photos/3823488/pexels-photo-3823488.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop', emoji:'💛👴🗣️', alt:'Ouvir o idoso' },
+
+    // Módulo 3 — sort
+    dividir_comida: { url:'https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop', emoji:'🤝🍎', alt:'Dividir comida' },
+    bater: { url:'https://images.pexels.com/photos/6936459/pexels-photo-6936459.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop', emoji:'😡👊💢', alt:'Violência' },
+    lixo: { url:'https://images.pexels.com/photos/3174350/pexels-photo-3174350.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop', emoji:'🗑️🌳🚮', alt:'Jogar lixo no lixo' },
+    limpar_casa: { url:'https://images.pexels.com/photos/4107120/pexels-photo-4107120.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop', emoji:'🧹🏠😊', alt:'Limpar a casa' },
+    ler_idoso: { url:'https://images.pexels.com/photos/3768134/pexels-photo-3768134.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop', emoji:'📖👴😊', alt:'Ler para idoso' },
+    reciclar: { url:'https://images.pexels.com/photos/802221/pexels-photo-802221.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop', emoji:'🌍♻️', alt:'Reciclagem' },
+
+    // Módulo 5 — hashtag
+    doacao: { url:'https://images.pexels.com/photos/6995104/pexels-photo-6995104.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop', emoji:'🤝🍲🫶', alt:'Doação de alimentos' },
+    bombeiro2: { url:'https://images.pexels.com/photos/5765827/pexels-photo-5765827.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop', emoji:'🧑‍🚒🔥💪', alt:'Bombeiro resgate' },
+    criancas: { url:'https://images.pexels.com/photos/8613089/pexels-photo-8613089.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop', emoji:'👧🤝👦', alt:'Crianças brincando' },
+    cuidar_idoso: { url:'https://images.pexels.com/photos/3768131/pexels-photo-3768131.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop', emoji:'👩‍⚕️🧓❤️', alt:'Cuidar de idoso' },
+    equipe: { url:'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop', emoji:'🤝👥', alt:'Trabalho em equipe' },
+    aperto_mao: { url:'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop', emoji:'🤝✅', alt:'Aperto de mão' },
+    natureza: { url:'https://images.pexels.com/photos/3560044/pexels-photo-3560044.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop', emoji:'🧘🌿🕊️', alt:'Paz na natureza' },
+    professor: { url:'https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=800&h=500&fit=crop', emoji:'👩‍🏫📚', alt:'Professor com aluno' },
+
+    // Módulo 6 — stories
+    carteira: { url:'https://images.pexels.com/photos/915915/pexels-photo-915915.jpeg?auto=compress&cs=tinysrgb&w=600&h=340&fit=crop', emoji:'🚶‍♂️💼❓', alt:'Carteira perdida' },
+    loja: { url:'https://images.pexels.com/photos/3965545/pexels-photo-3965545.jpeg?auto=compress&cs=tinysrgb&w=600&h=340&fit=crop', emoji:'🏪📋🧑', alt:'Dentro de uma loja' },
+    amizade: { url:'https://images.pexels.com/photos/5257526/pexels-photo-5257526.jpeg?auto=compress&cs=tinysrgb&w=600&h=340&fit=crop', emoji:'🧑🤝🧑😊', alt:'Amizade' },
+    escola: { url:'https://images.pexels.com/photos/8613028/pexels-photo-8613028.jpeg?auto=compress&cs=tinysrgb&w=600&h=340&fit=crop', emoji:'🏫👦😔', alt:'Escola' },
+    lanche: { url:'https://images.pexels.com/photos/8613089/pexels-photo-8613089.jpeg?auto=compress&cs=tinysrgb&w=600&h=340&fit=crop', emoji:'🍽️👦👧🥪', alt:'Hora do lanche' },
+    amigos: { url:'https://images.pexels.com/photos/8363104/pexels-photo-8363104.jpeg?auto=compress&cs=tinysrgb&w=600&h=340&fit=crop', emoji:'👬😊', alt:'Amigos felizes' },
+    arvore: { url:'https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?auto=compress&cs=tinysrgb&w=600&h=340&fit=crop', emoji:'🌳😢', alt:'Árvore grande' },
+    reuniao: { url:'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600&h=340&fit=crop', emoji:'🗣️🏛️📝', alt:'Reunião' },
+    comemorar: { url:'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=600&h=340&fit=crop', emoji:'🌳✅🏗️🔄😊', alt:'Comemoração' },
+
+    // Módulo 7 — inclusão digital
+    computador: { url:'https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&w=600&h=340&fit=crop', emoji:'💻🖥️', alt:'Pessoa usando computador' },
+    email: { url:'https://images.pexels.com/photos/4050315/pexels-photo-4050315.jpeg?auto=compress&cs=tinysrgb&w=600&h=340&fit=crop', emoji:'📧✉️', alt:'Usando e-mail' },
+    pesquisa: { url:'https://images.pexels.com/photos/5905709/pexels-photo-5905709.jpeg?auto=compress&cs=tinysrgb&w=600&h=340&fit=crop', emoji:'🔍🌐', alt:'Pesquisando na internet' },
+    seguranca: { url:'https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg?auto=compress&cs=tinysrgb&w=600&h=340&fit=crop', emoji:'🔒🛡️', alt:'Segurança digital' },
+    acessibilidade: { url:'https://images.pexels.com/photos/7176319/pexels-photo-7176319.jpeg?auto=compress&cs=tinysrgb&w=600&h=340&fit=crop', emoji:'♿🌐', alt:'Acessibilidade' },
+    fake_news: { url:'https://images.pexels.com/photos/6936459/pexels-photo-6936459.jpeg?auto=compress&cs=tinysrgb&w=600&h=340&fit=crop', emoji:'📰❌', alt:'Notícias falsas' },
+};
+
+/* Helper para criar tag de imagem com fallback para emoji */
+function imgTag(key, cls='', style='') {
+    const data = IMG[key];
+    if (!data) return '';
+    const id = 'img_'+key+'_'+Math.random().toString(36).substr(2,5);
+    return `<img id="${id}" class="${cls}" style="${style}opacity:0;transition:opacity .4s;" 
+        src="${data.url}" alt="${data.alt}" loading="lazy"
+        onload="this.style.opacity=1" 
+        onerror="this.outerHTML='<div class=\\'img-emoji-fallback\\'>${data.emoji}</div>'">`;
+}
+
 /* ============================================================
    UTILITIES
    ============================================================ */
@@ -327,7 +464,7 @@ function toast(id, eid, tid, ok, msg) {
 /* ============================================================
    STATE
    ============================================================ */
-const TOTAL_MODULES = 6;
+const TOTAL_MODULES = 7;
 let stars = 0;
 let modulesCompleted = 0;
 let currentScreen = 'welcome';
@@ -342,7 +479,7 @@ function updateProgress() {
 function showScreen(id) {
     currentScreen = id;
     window.scrollTo({top:0,behavior:'smooth'});
-    const fn = {welcome:renderWelcome, mod1:initMod1, mod2:initMod2, mod3:initMod3, mod4:initMod4, mod5:initMod5, mod6:initMod6, final:renderFinal};
+    const fn = {welcome:renderWelcome, mod1:initMod1, mod2:initMod2, mod3:initMod3, mod4:initMod4, mod5:initMod5, mod6:initMod6, mod7:initMod7, final:renderFinal};
     if (fn[id]) fn[id]();
 }
 
@@ -355,7 +492,7 @@ function renderWelcome() {
         <div class="g-card welcome-card">
             <div class="welcome-hero">👋</div>
             <h2>Bem-vindo!</h2>
-            <p style="font-size:1.1rem;line-height:1.6;">Vamos aprender sobre <strong>VIRTUDES</strong>.<br>Virtudes = coisas boas que fazemos! 💪❤️</p>
+            <p style="font-size:1.1rem;line-height:1.6;">Vamos aprender sobre <strong>VIRTUDES</strong> e <strong>TECNOLOGIA</strong>!<br>Virtudes = coisas boas que fazemos! 💪❤️<br>Tecnologia = ferramenta para aprender mais! 💻🌐</p>
             <div class="module-list">
                 <div class="module-preview"><span class="mp-emoji">🔍</span><span class="mp-name">Qual virtude?</span><span class="mp-diff" style="color:var(--success)">⭐ Fácil</span></div>
                 <div class="module-preview"><span class="mp-emoji">🔗</span><span class="mp-name">Ligar</span><span class="mp-diff" style="color:var(--success)">⭐ Fácil</span></div>
@@ -363,33 +500,34 @@ function renderWelcome() {
                 <div class="module-preview"><span class="mp-emoji">🧩</span><span class="mp-name">Montar</span><span class="mp-diff" style="color:var(--amber)">⭐⭐ Médio</span></div>
                 <div class="module-preview"><span class="mp-emoji">📸</span><span class="mp-name">Foto + #</span><span class="mp-diff" style="color:var(--primary)">⭐⭐⭐ Difícil</span></div>
                 <div class="module-preview"><span class="mp-emoji">📖</span><span class="mp-name">História</span><span class="mp-diff" style="color:var(--primary)">⭐⭐⭐ Difícil</span></div>
+                <div class="module-preview" style="background:var(--cyan-bg);"><span class="mp-emoji">💻</span><span class="mp-name">Inclusão Digital</span><span class="mp-diff" style="color:var(--cyan)">🆕 Novo!</span></div>
             </div>
-            <p style="font-size:.95rem;color:var(--text-mid);">6 atividades · Clique nas respostas!</p>
+            <p style="font-size:.95rem;color:var(--text-mid);">7 atividades · Clique nas respostas!</p>
             <div class="nav-buttons"><button class="btn btn-primary" onclick="showScreen('mod1')">COMEÇAR ▶️</button></div>
         </div>
     </div>`;
 }
 
 /* ============================================================
-   MODULE 1 — QUIZ: Qual é a virtude? (FÁCIL)
+   MODULE 1 — QUIZ: Qual é a virtude? (FÁCIL) — COM IMAGENS
    ============================================================ */
 const mod1Data = [
-    { scene:'👦➡️🧓💺', bg:'linear-gradient(135deg,#EBF5FB,#D6EAF8)',
+    { img:'jovem_idoso',
       q:'Um jovem dá o lugar para um idoso. Qual virtude?',
       opts:[{e:'💛',t:'Respeito',ok:true},{e:'💰',t:'Ganância'},{e:'😡',t:'Raiva'},{e:'😴',t:'Preguiça'}] },
-    { scene:'👩‍🦯🚶‍♀️🤝🚶', bg:'linear-gradient(135deg,#FEF9E7,#FCF3CF)',
+    { img:'ajudar_rua',
       q:'Alguém ajuda uma pessoa a atravessar a rua. Qual virtude?',
       opts:[{e:'🤥',t:'Mentira'},{e:'🤝',t:'Generosidade',ok:true},{e:'😤',t:'Egoísmo'},{e:'🙈',t:'Indiferença'}] },
-    { scene:'👧📱✋😊', bg:'linear-gradient(135deg,#F4ECF7,#E8DAEF)',
+    { img:'devolver_celular',
       q:'Uma menina acha um celular e devolve ao dono. Qual virtude?',
       opts:[{e:'💪',t:'Coragem'},{e:'🎭',t:'Falsidade'},{e:'🤞',t:'Honestidade',ok:true},{e:'😏',t:'Esperteza'}] },
-    { scene:'🧒😢➡️🧒🤗', bg:'linear-gradient(135deg,#E8F8F5,#D1F2EB)',
+    { img:'consolar',
       q:'Uma criança consola o amigo triste. Qual virtude?',
       opts:[{e:'🫂',t:'Empatia',ok:true},{e:'💤',t:'Preguiça'},{e:'🏃',t:'Pressa'},{e:'😈',t:'Maldade'}] },
-    { scene:'🦸‍♂️🔥🏠➡️👨‍👩‍👧', bg:'linear-gradient(135deg,#FDEDEC,#F5B7B1)',
+    { img:'bombeiro',
       q:'Bombeiro entra no fogo para salvar a família. Qual virtude?',
       opts:[{e:'😱',t:'Medo'},{e:'💪',t:'Coragem',ok:true},{e:'🤷',t:'Indiferença'},{e:'💰',t:'Ambição'}] },
-    { scene:'👩‍⚕️😊💊🧒', bg:'linear-gradient(135deg,#F0FDFA,#CCFBF1)',
+    { img:'medica',
       q:'A médica cuida do paciente com carinho. Qual virtude?',
       opts:[{e:'❤️',t:'Compaixão',ok:true},{e:'😤',t:'Orgulho'},{e:'🤑',t:'Avareza'},{e:'🙄',t:'Desdém'}] }
 ];
@@ -403,13 +541,13 @@ function renderMod1() {
     app.innerHTML = `
     <div class="screen active">
         <div class="act-head">
-            <div class="act-badge" style="background:var(--success)">MÓDULO 1 de 6</div>
+            <div class="act-badge" style="background:var(--success)">MÓDULO 1 de 7</div>
             <div class="act-title">🔍 Qual é a virtude?</div>
-            <div class="act-desc">Veja a cena. Escolha a virtude certa!</div>
+            <div class="act-desc">Veja a imagem. Escolha a virtude certa!</div>
             <div class="act-difficulty" style="background:var(--success-bg);color:var(--success)">⭐ Fácil</div>
         </div>
         <div class="g-card" style="margin-bottom:16px;">
-            <div class="scene-box" style="background:${d.bg}"><div class="scene-emojis">${d.scene}</div></div>
+            <div class="scene-img-box">${imgTag(d.img,'','width:100%;height:100%;object-fit:cover;')}</div>
             <div class="scene-question">${d.q}</div>
         </div>
         <div class="opts-grid" id="m1opts">
@@ -434,15 +572,15 @@ function m1Ans(el) {
 function m1Next() { m1i++; if(m1i<mod1Data.length) renderMod1(); else { modulesCompleted++; updateProgress(); showScreen('mod2'); } }
 
 /* ============================================================
-   MODULE 2 — MATCH (FÁCIL)
+   MODULE 2 — MATCH (FÁCIL) — COM IMAGENS NAS SITUAÇÕES
    ============================================================ */
 const mod2Data = [
-    {sit:'🍞➡️🧑‍🤝‍🧑',sitT:'Dar comida',vir:'🤝',virT:'Generosidade'},
-    {sit:'⏳😌🧘',sitT:'Esperar a vez',vir:'⏳',virT:'Paciência'},
-    {sit:'🗣️✅📢',sitT:'Falar a verdade',vir:'🤞',virT:'Honestidade'},
-    {sit:'⚖️🍰👧👦',sitT:'Dividir igual',vir:'⚖️',virT:'Justiça'},
-    {sit:'🕊️🤝😊',sitT:'Fazer as pazes',vir:'🕊️',virT:'Paz'},
-    {sit:'💛👴🗣️👂',sitT:'Ouvir o idoso',vir:'💛',virT:'Respeito'},
+    {img:'dar_comida',sitT:'Dar comida',vir:'🤝',virT:'Generosidade'},
+    {img:'esperar',sitT:'Esperar a vez',vir:'⏳',virT:'Paciência'},
+    {img:'verdade',sitT:'Falar a verdade',vir:'🤞',virT:'Honestidade'},
+    {img:'dividir',sitT:'Dividir igual',vir:'⚖️',virT:'Justiça'},
+    {img:'pazes',sitT:'Fazer as pazes',vir:'🕊️',virT:'Paz'},
+    {img:'ouvir_idoso',sitT:'Ouvir o idoso',vir:'💛',virT:'Respeito'},
 ];
 let m2sel=null, m2done=0;
 
@@ -452,7 +590,7 @@ function initMod2() {
     app.innerHTML = `
     <div class="screen active">
         <div class="act-head">
-            <div class="act-badge" style="background:var(--success)">MÓDULO 2 de 6</div>
+            <div class="act-badge" style="background:var(--success)">MÓDULO 2 de 7</div>
             <div class="act-title">🔗 Ligue a Situação à Virtude</div>
             <div class="act-desc">Clique na situação, depois na virtude!</div>
             <div class="act-difficulty" style="background:var(--success-bg);color:var(--success)">⭐ Fácil</div>
@@ -460,7 +598,7 @@ function initMod2() {
         <div class="match-wrap">
             <div class="match-col sit"><h3>📷 Situação</h3><div id="m2sits">
                 ${ss.map(m=>`<div class="m-item" data-type="s" data-id="${mod2Data.indexOf(m)}" onclick="m2Click(this)">
-                    <span class="mi-emoji">${m.sit}</span><span class="mi-text">${m.sitT}</span></div>`).join('')}
+                    ${imgTag(m.img,'mi-img')}<span class="mi-text">${m.sitT}</span></div>`).join('')}
             </div></div>
             <div class="match-col vir"><h3>💎 Virtude</h3><div id="m2virs">
                 ${vs.map(m=>`<div class="m-item" data-type="v" data-id="${mod2Data.indexOf(m)}" onclick="m2Click(this)">
@@ -492,21 +630,21 @@ function m2Click(el) {
 }
 
 /* ============================================================
-   MODULE 3 — SORT: Certo ou Errado (MÉDIO)
+   MODULE 3 — SORT: Certo ou Errado (MÉDIO) — COM IMAGENS
    ============================================================ */
 let mod3Data, m3i=0, m3score=0;
 
 function initMod3() {
     mod3Data = shuffle([
-        {e:'🤝🍎➡️👦',t:'Dividir comida com amigo',v:true,vn:'Generosidade'},
-        {e:'😡👊💢',t:'Bater em alguém',v:false},
-        {e:'🗑️🌳🚮',t:'Jogar lixo no lixo',v:true,vn:'Responsabilidade'},
+        {img:'dividir_comida',e:'🤝🍎➡️👦',t:'Dividir comida com amigo',v:true,vn:'Generosidade'},
+        {img:'bater',e:'😡👊💢',t:'Bater em alguém',v:false},
+        {img:'lixo',e:'🗑️🌳🚮',t:'Jogar lixo no lixo',v:true,vn:'Responsabilidade'},
         {e:'📱🤫👀',t:'Mexer no celular do outro',v:false},
-        {e:'🧹🏠😊',t:'Ajudar a limpar a casa',v:true,vn:'Cooperação'},
+        {img:'limpar_casa',e:'🧹🏠😊',t:'Ajudar a limpar a casa',v:true,vn:'Cooperação'},
         {e:'🗣️😤🤬',t:'Xingar uma pessoa',v:false},
-        {e:'📖👴😊',t:'Ler para um idoso',v:true,vn:'Carinho'},
+        {img:'ler_idoso',e:'📖👴😊',t:'Ler para um idoso',v:true,vn:'Carinho'},
         {e:'🍬🤫😏',t:'Pegar doce escondido',v:false},
-        {e:'🌍♻️😊',t:'Reciclar o lixo',v:true,vn:'Consciência'},
+        {img:'reciclar',e:'🌍♻️😊',t:'Reciclar o lixo',v:true,vn:'Consciência'},
         {e:'🤫📋👀',t:'Copiar a prova do colega',v:false},
     ]);
     m3i=0; m3score=0; renderMod3();
@@ -514,16 +652,20 @@ function initMod3() {
 
 function renderMod3() {
     const d=mod3Data[m3i];
+    const hasImg = d.img && IMG[d.img];
     app.innerHTML = `
     <div class="screen active">
         <div class="act-head">
-            <div class="act-badge" style="background:var(--amber)">MÓDULO 3 de 6</div>
+            <div class="act-badge" style="background:var(--amber)">MÓDULO 3 de 7</div>
             <div class="act-title">✅❌ Certo ou Errado?</div>
             <div class="act-desc">Essa ação é virtude ou não?</div>
             <div class="act-difficulty" style="background:var(--amber-bg);color:var(--amber)">⭐⭐ Médio</div>
         </div>
         <div class="sort-counter">${m3i+1} de ${mod3Data.length}</div>
-        <div class="g-card sort-card"><div class="s-emoji">${d.e}</div><div class="s-text">${d.t}</div></div>
+        <div class="g-card sort-card">
+            ${hasImg ? imgTag(d.img,'s-img') : `<div class="s-emoji">${d.e}</div>`}
+            <div class="s-text">${d.t}</div>
+        </div>
         <div class="buckets">
             <div class="bucket" id="bkY" onclick="m3Ans(true)"><div class="bk-emoji">✅</div><div class="bk-label">VIRTUDE</div></div>
             <div class="bucket" id="bkN" onclick="m3Ans(false)"><div class="bk-emoji">❌</div><div class="bk-label">NÃO É</div></div>
@@ -573,7 +715,7 @@ function renderMod4() {
     app.innerHTML = `
     <div class="screen active">
         <div class="act-head">
-            <div class="act-badge" style="background:var(--amber)">MÓDULO 4 de 6</div>
+            <div class="act-badge" style="background:var(--amber)">MÓDULO 4 de 7</div>
             <div class="act-title">🧩 Monte a Virtude</div>
             <div class="act-desc">Escolha 3 ações que combinam!</div>
             <div class="act-difficulty" style="background:var(--amber-bg);color:var(--amber)">⭐⭐ Médio</div>
@@ -608,25 +750,24 @@ function m4Pick(el) {
 function m4NextR() { m4ri++; if(m4ri<mod4Rounds.length) renderMod4(); else { modulesCompleted++; updateProgress(); showScreen('mod5'); } }
 
 /* ============================================================
-   MODULE 5 — IMAGE + HASHTAG (DIFÍCIL)
-   Uses Unsplash Source (free, no key needed)
+   MODULE 5 — IMAGE + HASHTAG (DIFÍCIL) — COM IMAGENS PEXELS
    ============================================================ */
 const mod5Data = [
-    { kw:'volunteer+food+donation', answer:'#Generosidade',
+    { img:'doacao', answer:'#Generosidade',
       options:['#Generosidade','#Preguiça','#Egoísmo','#Medo'], hint:'Pessoa doando alimentos' },
-    { kw:'firefighter+rescue', answer:'#Coragem',
+    { img:'bombeiro2', answer:'#Coragem',
       options:['#Coragem','#Covardia','#Indiferença','#Ganância'], hint:'Bombeiro em ação' },
-    { kw:'children+sharing+playing', answer:'#Amizade',
+    { img:'criancas', answer:'#Amizade',
       options:['#Amizade','#Inveja','#Raiva','#Solidão'], hint:'Crianças brincando juntas' },
-    { kw:'elderly+care+nurse', answer:'#Compaixão',
+    { img:'cuidar_idoso', answer:'#Compaixão',
       options:['#Compaixão','#Descaso','#Arrogância','#Pressa'], hint:'Cuidando de idoso' },
-    { kw:'teamwork+hands+together', answer:'#Cooperação',
+    { img:'equipe', answer:'#Cooperação',
       options:['#Cooperação','#Egoísmo','#Rivalidade','#Desprezo'], hint:'Trabalho em equipe' },
-    { kw:'honest+handshake+trust', answer:'#Honestidade',
+    { img:'aperto_mao', answer:'#Honestidade',
       options:['#Honestidade','#Mentira','#Falsidade','#Dissimulação'], hint:'Confiança e sinceridade' },
-    { kw:'peaceful+nature+meditation', answer:'#Paz',
+    { img:'natureza', answer:'#Paz',
       options:['#Paz','#Violência','#Conflito','#Agitação'], hint:'Tranquilidade e calma' },
-    { kw:'teacher+student+patience', answer:'#Paciência',
+    { img:'professor', answer:'#Paciência',
       options:['#Paciência','#Irritação','#Grosseria','#Abandono'], hint:'Professor ajudando com calma' },
 ];
 let m5i=0, m5score=0;
@@ -636,12 +777,11 @@ function initMod5() { m5i=0; m5score=0; renderMod5(); }
 function renderMod5() {
     const d=mod5Data[m5i];
     const opts=shuffle(d.options);
-    // Unsplash source — free, redirects to random photo matching keyword
-    const imgUrl = `https://source.unsplash.com/800x500/?${d.kw}&sig=${Date.now()+m5i}`;
+    const imgData = IMG[d.img];
     app.innerHTML = `
     <div class="screen active">
         <div class="act-head">
-            <div class="act-badge" style="background:var(--primary)">MÓDULO 5 de 6</div>
+            <div class="act-badge" style="background:var(--primary)">MÓDULO 5 de 7</div>
             <div class="act-title">📸 Foto + Hashtag</div>
             <div class="act-desc">Veja a foto. Qual # combina?</div>
             <div class="act-difficulty" style="background:var(--primary-bg);color:var(--primary)">⭐⭐⭐ Difícil</div>
@@ -649,10 +789,10 @@ function renderMod5() {
         <div class="g-card" style="margin-bottom:16px;">
             <div class="img-scene" id="m5imgWrap">
                 <div class="img-loader" id="m5loader">⏳</div>
-                <img id="m5img" src="${imgUrl}" alt="${d.hint}"
+                <img id="m5img" src="${imgData.url}" alt="${d.hint}"
                      onload="document.getElementById('m5loader').style.display='none';this.style.opacity=1;"
                      onerror="m5Fallback()" style="opacity:0;" crossorigin="anonymous">
-                <div class="img-credit">Foto: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></div>
+                <div class="img-credit">Foto: <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a> (livre)</div>
             </div>
             <div class="scene-question">
                 <span style="font-size:1.5rem;">🏷️</span> ${d.hint}<br>
@@ -670,19 +810,10 @@ function renderMod5() {
 
 function m5Fallback() {
     const d=mod5Data[m5i];
-    const img=document.getElementById('m5img');
-    // Try picsum as fallback
-    img.src=`https://picsum.photos/seed/${d.kw.replace(/\+/g,'')}/800/500`;
-    img.onerror=function(){
-        // Final fallback: emoji representation
-        const fallbackEmojis = {'volunteer+food+donation':'🤝🍲🫶','firefighter+rescue':'🧑‍🚒🔥💪','children+sharing+playing':'👧🤝👦⚽',
-            'elderly+care+nurse':'👩‍⚕️🧓❤️','teamwork+hands+together':'🤝👥💼','honest+handshake+trust':'🤝✅😊',
-            'peaceful+nature+meditation':'🧘🌿🕊️','teacher+student+patience':'👩‍🏫📚😊'};
-        const emoji = fallbackEmojis[d.kw] || '🖼️';
-        document.getElementById('m5imgWrap').innerHTML=`
-            <div style="font-size:5rem;text-align:center;padding:40px;line-height:1.4;">${emoji}<br>
-            <span style="font-size:1.1rem;font-weight:700;">${d.hint}</span></div>`;
-    };
+    const imgData = IMG[d.img];
+    document.getElementById('m5imgWrap').innerHTML=`
+        <div style="font-size:5rem;text-align:center;padding:40px;line-height:1.4;">${imgData.emoji}<br>
+        <span style="font-size:1.1rem;font-weight:700;">${d.hint}</span></div>`;
 }
 
 function m5Ans(el) {
@@ -698,31 +829,31 @@ function m5Ans(el) {
 function m5Next() { m5i++; if(m5i<mod5Data.length) renderMod5(); else { modulesCompleted++; updateProgress(); showScreen('mod6'); } }
 
 /* ============================================================
-   MODULE 6 — STORY BUILDER (DIFÍCIL)
+   MODULE 6 — STORY BUILDER (DIFÍCIL) — COM IMAGENS
    ============================================================ */
 const mod6Stories = [
     { title:'A carteira perdida', steps:[
-        { scene:'🚶‍♂️💼❓', narration:'João encontra uma carteira com dinheiro no chão.', prompt:'O que João deve fazer?',
+        { img:'carteira', narration:'João encontra uma carteira com dinheiro no chão.', prompt:'O que João deve fazer?',
           opts:[{e:'🤞',t:'Devolver ao dono',ok:true,virtue:'Honestidade'},{e:'💰',t:'Guardar o dinheiro'},{e:'🙈',t:'Fingir que não viu'}] },
-        { scene:'🏪📋🧑', narration:'João leva a carteira a uma loja para achar o dono.', prompt:'O dono quer dar recompensa. O que João faz?',
+        { img:'loja', narration:'João leva a carteira a uma loja para achar o dono.', prompt:'O dono quer dar recompensa. O que João faz?',
           opts:[{e:'😊',t:'Agradecer e recusar',ok:true,virtue:'Humildade'},{e:'🤑',t:'Pedir mais dinheiro'},{e:'😤',t:'Reclamar que demorou'}] },
-        { scene:'🧑🤝🧑😊', narration:'O dono agradece e ficam amigos!', prompt:'Qual virtude mais importante?',
+        { img:'amizade', narration:'O dono agradece e ficam amigos!', prompt:'Qual virtude mais importante?',
           opts:[{e:'🤞',t:'Honestidade',ok:true,virtue:'Honestidade'},{e:'😈',t:'Esperteza'},{e:'💰',t:'Ambição'}] }
     ]},
     { title:'O aluno novo', steps:[
-        { scene:'🏫👦😔🧒🧒', narration:'Um aluno novo chega na escola. Parece triste e sozinho.', prompt:'O que você faria?',
+        { img:'escola', narration:'Um aluno novo chega na escola. Parece triste e sozinho.', prompt:'O que você faria?',
           opts:[{e:'🤗',t:'Chamar para brincar',ok:true,virtue:'Empatia'},{e:'😂',t:'Rir porque é diferente'},{e:'🙈',t:'Não fazer nada'}] },
-        { scene:'🍽️👦👧🥪', narration:'Na hora do lanche, o aluno novo não trouxe comida.', prompt:'O que fazer?',
+        { img:'lanche', narration:'Na hora do lanche, o aluno novo não trouxe comida.', prompt:'O que fazer?',
           opts:[{e:'🤝',t:'Dividir o lanche',ok:true,virtue:'Generosidade'},{e:'😋',t:'Comer tudo sozinho'},{e:'😏',t:'Dizer "problema seu"'}] },
-        { scene:'👬😊⚽🏫', narration:'O aluno novo fez muitos amigos!', prompt:'Qual virtude fez a diferença?',
+        { img:'amigos', narration:'O aluno novo fez muitos amigos!', prompt:'Qual virtude fez a diferença?',
           opts:[{e:'🫂',t:'Empatia e acolhimento',ok:true,virtue:'Empatia'},{e:'😤',t:'Competição'},{e:'🤷',t:'Indiferença'}] }
     ]},
     { title:'A árvore do bairro', steps:[
-        { scene:'🌳😢🪓🏗️', narration:'A prefeitura quer derrubar a árvore do bairro.', prompt:'Os moradores devem:',
+        { img:'arvore', narration:'A prefeitura quer derrubar a árvore do bairro.', prompt:'Os moradores devem:',
           opts:[{e:'📢',t:'Conversar com a prefeitura',ok:true,virtue:'Coragem'},{e:'🤷',t:'Não fazer nada'},{e:'😡',t:'Quebrar as máquinas'}] },
-        { scene:'🗣️🏛️📝🌳', narration:'Os moradores conversam com respeito e fazem abaixo-assinado.', prompt:'Que virtude praticam?',
+        { img:'reuniao', narration:'Os moradores conversam com respeito e fazem abaixo-assinado.', prompt:'Que virtude praticam?',
           opts:[{e:'🕊️',t:'Diálogo pacífico',ok:true,virtue:'Paz'},{e:'😡',t:'Agressividade'},{e:'😴',t:'Passividade'}] },
-        { scene:'🌳✅🏗️🔄😊', narration:'A prefeitura aceita mudar o projeto! Todos comemoram!', prompt:'O que aprendemos?',
+        { img:'comemorar', narration:'A prefeitura aceita mudar o projeto! Todos comemoram!', prompt:'O que aprendemos?',
           opts:[{e:'💪',t:'Coragem e diálogo mudam o mundo',ok:true,virtue:'Coragem + Paz'},{e:'🤷',t:'Não vale lutar'},{e:'😡',t:'Violência é a solução'}] }
     ]}
 ];
@@ -734,17 +865,18 @@ function renderMod6() {
     const story=mod6Stories[m6si], step=story.steps[m6stepi];
     const opts=shuffle(step.opts);
     const dots=story.steps.map((_,i)=>`<div class="story-dot${i<m6stepi?' done':''}${i===m6stepi?' current':''}"></div>`).join('');
+    const hasImg = step.img && IMG[step.img];
     app.innerHTML = `
     <div class="screen active">
         <div class="act-head">
-            <div class="act-badge" style="background:var(--primary)">MÓDULO 6 de 6</div>
+            <div class="act-badge" style="background:var(--primary)">MÓDULO 6 de 7</div>
             <div class="act-title">📖 ${story.title}</div>
             <div class="act-desc">Escolha a melhor ação!</div>
             <div class="act-difficulty" style="background:var(--primary-bg);color:var(--primary)">⭐⭐⭐ Difícil</div>
         </div>
         <div class="story-progress-dots">${dots}</div>
         <div class="g-card story-panel">
-            <div class="story-scene-emoji">${step.scene}</div>
+            ${hasImg ? imgTag(step.img,'story-scene-img') : `<div class="story-scene-emoji">${step.scene||'📖'}</div>`}
             <div class="story-narration">${step.narration}</div>
             <div class="story-prompt">${step.prompt}</div>
         </div>
@@ -776,15 +908,167 @@ function m6Next() {
     if(m6stepi<mod6Stories[m6si].steps.length) { renderMod6(); }
     else { m6si++; m6stepi=0;
         if(m6si<mod6Stories.length) renderMod6();
-        else { modulesCompleted++; updateProgress(); showScreen('final'); }
+        else { modulesCompleted++; updateProgress(); showScreen('mod7'); }
     }
 }
+
+/* ============================================================
+   MODULE 7 — INCLUSÃO DIGITAL (NOVO!)
+   Atividades que conectam virtudes + habilidades digitais
+   ============================================================ */
+const mod7Data = [
+    {
+        img:'computador',
+        title:'Partes do Computador',
+        text:'Maria quer usar o computador do laboratório. Qual é a primeira coisa que ela deve fazer?',
+        opts:[
+            {icon:'🖱️',t:'Ligar o monitor e o computador',ok:true},
+            {icon:'🔨',t:'Bater no teclado'},
+            {icon:'🏃',t:'Sair correndo da sala'},
+        ],
+        tip:'Para usar o computador: 1) Aperte o botão de ligar no gabinete. 2) Ligue o monitor. 3) Espere carregar. O teclado serve para digitar e o mouse para clicar!'
+    },
+    {
+        img:'pesquisa',
+        title:'Pesquisar na Internet',
+        text:'O professor pediu para pesquisar sobre "reciclagem". Onde pesquisar?',
+        opts:[
+            {icon:'🔍',t:'Abrir o navegador e digitar no Google',ok:true},
+            {icon:'📱',t:'Mandar mensagem para um amigo'},
+            {icon:'🤷',t:'Desistir porque não sabe'},
+        ],
+        tip:'Para pesquisar: 1) Abra o navegador (Chrome, Firefox). 2) Clique na barra de busca. 3) Digite o que quer saber. 4) Aperte ENTER. 5) Leia os resultados com atenção!'
+    },
+    {
+        img:'email',
+        title:'E-mail: Comunicação Digital',
+        text:'João quer mandar uma mensagem de agradecimento para a professora. Qual ferramenta usar?',
+        opts:[
+            {icon:'📧',t:'Escrever um e-mail',ok:true},
+            {icon:'📢',t:'Gritar pela janela'},
+            {icon:'❌',t:'Não agradecer'},
+        ],
+        tip:'O e-mail é como uma carta digital! Tem: PARA (endereço do e-mail), ASSUNTO (sobre o que é) e MENSAGEM (o que você quer dizer). Agradecer é a virtude da GRATIDÃO!'
+    },
+    {
+        img:'seguranca',
+        title:'Senha Segura',
+        text:'Ana criou uma conta. Qual senha é mais SEGURA?',
+        opts:[
+            {icon:'🔒',t:'Ana@Escola2025!',ok:true},
+            {icon:'😰',t:'123456'},
+            {icon:'🙈',t:'Contar a senha para todos'},
+        ],
+        tip:'Senha segura tem: letras maiúsculas, minúsculas, números e símbolos (@!#). NUNCA compartilhe sua senha! Isso é RESPONSABILIDADE digital.'
+    },
+    {
+        img:'fake_news',
+        title:'Notícias Falsas (Fake News)',
+        text:'Pedro viu uma notícia assustadora no celular. O que fazer ANTES de compartilhar?',
+        opts:[
+            {icon:'🔍',t:'Verificar se é verdade em sites confiáveis',ok:true},
+            {icon:'📤',t:'Compartilhar com todo mundo'},
+            {icon:'😱',t:'Ficar com medo e não contar'},
+        ],
+        tip:'Antes de compartilhar: 1) Veja QUEM publicou. 2) Procure a mesma notícia em outros sites. 3) Desconfie de títulos muito exagerados. Verificar é a virtude da HONESTIDADE!'
+    },
+    {
+        img:'acessibilidade',
+        title:'Acessibilidade: Tecnologia para TODOS',
+        text:'Seu colega surdo precisa assistir um vídeo. Como ajudar?',
+        opts:[
+            {icon:'📝',t:'Ativar legendas no vídeo',ok:true},
+            {icon:'🔊',t:'Aumentar o volume'},
+            {icon:'🤷',t:'Dizer que não tem jeito'},
+        ],
+        tip:'Acessibilidade = todos podem usar a tecnologia! Para surdos: legendas, Libras, alertas visuais. O computador tem recursos de acessibilidade. Isso é EMPATIA e RESPEITO!'
+    },
+    {
+        img:'computador',
+        title:'Criar uma Pasta no Computador',
+        text:'A professora pediu para salvar um trabalho. Onde salvar de forma organizada?',
+        opts:[
+            {icon:'📁',t:'Criar uma pasta com seu nome e salvar dentro',ok:true},
+            {icon:'🗑️',t:'Salvar na lixeira'},
+            {icon:'😤',t:'Não salvar porque vai perder mesmo'},
+        ],
+        tip:'Para criar pasta: 1) Clique com botão DIREITO do mouse. 2) Escolha "Nova Pasta". 3) Dê um nome (ex: "Maria - Trabalhos"). 4) Salve seus arquivos dentro! Organização é RESPONSABILIDADE!'
+    },
+    {
+        img:'pesquisa',
+        title:'Copiar e Colar com Virtude',
+        text:'Você achou um texto bom na internet para o trabalho escolar. O que fazer?',
+        opts:[
+            {icon:'📝',t:'Ler, entender e escrever com suas palavras',ok:true},
+            {icon:'📋',t:'Copiar tudo e dizer que é seu'},
+            {icon:'🤷',t:'Não fazer o trabalho'},
+        ],
+        tip:'Copiar trabalho dos outros sem dizer é PLÁGIO (como roubar ideias). Leia, entenda e escreva com suas palavras. Se usar a ideia de alguém, diga de onde veio. Isso é HONESTIDADE!'
+    },
+];
+let m7i=0, m7score=0;
+
+function initMod7() { m7i=0; m7score=0; renderMod7(); }
+
+function renderMod7() {
+    const d=mod7Data[m7i];
+    const opts=shuffle(d.opts);
+    const hasImg = d.img && IMG[d.img];
+    app.innerHTML = `
+    <div class="screen active">
+        <div class="act-head">
+            <div class="act-badge" style="background:var(--cyan)">MÓDULO 7 de 7 — NOVO!</div>
+            <div class="act-title">💻 Inclusão Digital + Virtudes</div>
+            <div class="act-desc">Aprenda a usar o computador com sabedoria!</div>
+            <div class="act-difficulty" style="background:var(--cyan-bg);color:var(--cyan)">🖥️ Prático</div>
+        </div>
+        <div class="digi-scenario">
+            <div class="digi-img-wrap">
+                ${hasImg ? imgTag(d.img,'','width:100%;height:100%;object-fit:cover;') : `<div class="digi-icon">${IMG[d.img]?.emoji||'💻'}</div>`}
+            </div>
+            <div class="digi-body">
+                <h3>${d.title}</h3>
+                <p>${d.text}</p>
+            </div>
+        </div>
+        <div class="digi-opts" id="m7opts">
+            ${opts.map(o=>`<div class="digi-opt" data-ok="${!!o.ok}" data-text="${o.t}" onclick="m7Ans(this)">
+                <span class="do-icon">${o.icon}</span><span class="do-text">${o.t}</span></div>`).join('')}
+        </div>
+        <div class="toast" id="m7toast"><div class="t-emoji" id="m7te"></div><div class="t-text" id="m7tt"></div></div>
+        <div class="digi-tip" id="m7tip">
+            <div class="dt-title">💡 DICA DIGITAL:</div>
+            <div class="dt-text">${d.tip}</div>
+        </div>
+        <div class="nav-buttons" id="m7nav" style="display:none;"><button class="btn btn-cyan" onclick="m7Next()">PRÓXIMO ▶️</button></div>
+        <div style="text-align:center;margin-top:8px;font-size:.85rem;color:var(--text-light);">${m7i+1} de ${mod7Data.length}</div>
+    </div>`;
+}
+
+function m7Ans(el) {
+    const all=document.querySelectorAll('#m7opts .digi-opt');
+    all.forEach(b=>{b.classList.add('d-dim'); if(b.dataset.ok==='true') b.classList.add('d-correct');});
+    el.classList.remove('d-dim');
+    if(el.dataset.ok==='true') {
+        m7score++; stars++;
+        toast('m7toast','m7te','m7tt',true,'Certo! ⭐ '+el.dataset.text); confetti();
+    } else {
+        el.classList.add('d-wrong');
+        const r=[...all].find(b=>b.dataset.ok==='true');
+        toast('m7toast','m7te','m7tt',false,'Resposta certa: '+r.dataset.text);
+    }
+    // Sempre mostrar a dica digital
+    document.getElementById('m7tip').classList.add('show');
+    updateProgress(); document.getElementById('m7nav').style.display='flex';
+}
+
+function m7Next() { m7i++; if(m7i<mod7Data.length) renderMod7(); else { modulesCompleted++; updateProgress(); showScreen('final'); } }
 
 /* ============================================================
    FINAL
    ============================================================ */
 function renderFinal() {
-    const maxStars = mod1Data.length + mod2Data.length + mod3Data.length + mod4Rounds.length*3 + mod5Data.length + mod6Stories.reduce((s,st)=>s+st.steps.length,0);
+    const maxStars = mod1Data.length + mod2Data.length + mod3Data.length + mod4Rounds.length*3 + mod5Data.length + mod6Stories.reduce((s,st)=>s+st.steps.length,0) + mod7Data.length;
     const pct=stars/maxStars;
     const sd=pct>=.8?'⭐⭐⭐':pct>=.5?'⭐⭐':'⭐';
     app.innerHTML = `
@@ -795,7 +1079,7 @@ function renderFinal() {
             <div style="font-size:1.3rem;font-weight:700;margin:8px 0;">⭐ ${stars} de ${maxStars} estrelas</div>
             <div style="font-size:2.5rem;margin:8px 0;">${sd}</div>
             <p style="font-size:1.1rem;margin:10px 0;">Você completou TODAS as atividades! 🎉</p>
-            <p style="font-size:1rem;color:var(--text-mid);">Praticar virtudes faz o mundo melhor! 🌍❤️</p>
+            <p style="font-size:1rem;color:var(--text-mid);">Praticar virtudes e usar a tecnologia faz o mundo melhor! 🌍❤️💻</p>
             <div class="virtues-grid">
                 <div class="vb"><span class="vb-e">🤝</span><span class="vb-n">Generosidade</span></div>
                 <div class="vb"><span class="vb-e">💛</span><span class="vb-n">Respeito</span></div>
@@ -807,6 +1091,8 @@ function renderFinal() {
                 <div class="vb"><span class="vb-e">⏳</span><span class="vb-n">Paciência</span></div>
                 <div class="vb"><span class="vb-e">❤️</span><span class="vb-n">Compaixão</span></div>
                 <div class="vb"><span class="vb-e">🙏</span><span class="vb-n">Gratidão</span></div>
+                <div class="vb" style="background:var(--cyan-bg);"><span class="vb-e">💻</span><span class="vb-n" style="color:var(--cyan);">Inclusão Digital</span></div>
+                <div class="vb" style="background:var(--cyan-bg);"><span class="vb-e">🔒</span><span class="vb-n" style="color:var(--cyan);">Segurança Online</span></div>
             </div>
             <div class="nav-buttons"><button class="btn btn-success" onclick="stars=0;modulesCompleted=0;updateProgress();showScreen('welcome')">🔄 JOGAR DE NOVO</button></div>
         </div>
